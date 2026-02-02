@@ -56,14 +56,14 @@ initAnim(); animate();
 
 // --- Data Logic ---
 function fetchGrades() {
-  const id = document.getElementById('hashIdInput').value;
+  const id = document.getElementById('nameInput').value;
   const btn = document.querySelector('.btn-formal');
   const err = document.getElementById('error-msg');
 
   if (!id) return;
   btn.textContent = 'Verifying Credentials...'; btn.disabled = true; err.style.display = 'none';
 
-  fetch(SCRIPT_URL + "?id=" + encodeURIComponent(id), { redirect: "follow", credentials: 'omit' })
+  fetch(SCRIPT_URL + "?name=" + encodeURIComponent(id), { redirect: "follow", credentials: 'omit' })
     .then(res => res.json())
     .then(data => {
       if (data.found) {
@@ -83,12 +83,12 @@ function fetchGrades() {
 }
 
 function refreshDashboard(btn) {
-  const id = document.getElementById('hashIdInput').value;
+  const id = document.getElementById('nameInput').value;
   if (!id) return;
   const origText = btn.innerHTML;
   btn.innerHTML = 'Loading...'; btn.disabled = true;
 
-  fetch(SCRIPT_URL + "?id=" + encodeURIComponent(id), { redirect: "follow", credentials: 'omit' })
+  fetch(SCRIPT_URL + "?name=" + encodeURIComponent(id), { redirect: "follow", credentials: 'omit' })
     .then(res => res.json())
     .then(data => {
       if (data.found) renderDashboard(data);
